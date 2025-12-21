@@ -1,7 +1,9 @@
+import { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
+
 import HeaderPerfil from '../../components/HeaderPerfil'
 import Footer from '../../components/Footer'
-import { restaurants } from '../../data/restaurants'
+import ProductModal from '../../components/ProductModals'
 
 import {
     Banner,
@@ -17,15 +19,23 @@ import {
     CardButton
 } from './styles'
 
-type RouteParams = {
+import { getRestaurantePorId } from '../../services/api'
+import type { Restaurante, Produto } from '../../Types/efood'
+
+type Params = {
     id: string
 }
 
 export default function Perfil() {
-    const { id } = useParams<RouteParams>()
-    const restaurante = restaurants.find(
-        (r) => r.id === Number(id)
-    )
+    const { id } = useParams<Params>()
+
+    const [restaurante, setRestaurante] = useState<Restaurante | null>(null)
+    const [produtoSelecionado, setProdutoSelecionado] = useState<Produto | null>(null)
+
+    useEffect(() => {
+        if (!id) return
+        getRestaurantePorId(Number(id)).then(setRestaurante)
+    }, [id])
 
     if (!restaurante) {
         return null
@@ -33,20 +43,15 @@ export default function Perfil() {
 
     return (
         <>
-            {/* Header específico da segunda página */}
-            <HeaderPerfil cartCount={0} />
+            <HeaderPerfil />
 
-            {/* Banner do restaurante */}
-            <Banner
-                style={{ backgroundImage: `url(${restaurante.imagem})` }}
-            >
+            <Banner style={{ backgroundImage: `url(${restaurante.capa})` }}>
                 <BannerContent>
-                    <Categoria>{restaurante.categoria}</Categoria>
-                    <Titulo>{restaurante.nome}</Titulo>
+                    <Categoria>{restaurante.tipo}</Categoria>
+                    <Titulo>{restaurante.titulo}</Titulo>
                 </BannerContent>
             </Banner>
 
-            {/* Listagem de pratos (6 cards) */}
             <Container>
                 <Grid>
                     {restaurante.cardapio.map((item) => (
@@ -54,11 +59,20 @@ export default function Perfil() {
                             <CardImage src={item.foto} alt={item.nome} />
                             <CardTitle>{item.nome}</CardTitle>
                             <CardDesc>{item.descricao}</CardDesc>
-                            <CardButton>Adicionar ao carrinho</CardButton>
+                            <CardButton onClick={() => setProdutoSelecionado(item)}>
+                                Comprar
+                            </CardButton>
                         </Card>
                     ))}
                 </Grid>
             </Container>
+
+            {produtoSelecionado && (
+                <ProductModal
+                    produto={produtoSelecionado}
+                    onClose={() => setProdutoSelecionado(null)}
+                />
+            )}
 
             <Footer />
         </>

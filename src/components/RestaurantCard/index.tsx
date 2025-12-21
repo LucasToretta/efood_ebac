@@ -1,40 +1,42 @@
 import { Link } from 'react-router-dom'
-import type { Restaurant } from '../../data/restaurants'
+import type { Restaurante } from '../../Types/efood'
+
 import {
     Card,
-    Image,
-    Content,
-    Tags,
+    CardImage,
+    CardContent,
+    CardTitle,
+    CardInfo,
+    CardDesc,
     Tag,
-    TitleRow,
-    Title,
-    Rating,
-    Description,
     Button
 } from './styles'
 
 type Props = {
-    restaurant: Restaurant
+    restaurante: Restaurante
 }
 
-export default function RestaurantCard({ restaurant }: Props) {
+export default function RestaurantCard({ restaurante }: Props) {
     return (
         <Card>
-            <Image src={restaurant.imagem} alt={restaurant.nome} />
-            <Tags>
-                {restaurant.destaque && <Tag>Destaque da semana</Tag>}
-                <Tag>{restaurant.categoria}</Tag>
-            </Tags>
-            <Content>
-                <TitleRow>
-                    <Title>{restaurant.nome}</Title>
-                    <Rating>{restaurant.avaliacao} ★</Rating>
-                </TitleRow>
-                <Description>{restaurant.descricao}</Description>
-                <Link to={`/restaurante/${restaurant.id}`}>
+            <CardImage src={restaurante.capa} alt={restaurante.titulo} />
+
+            {restaurante.destacado && <Tag>Destaque da semana</Tag>}
+
+            <CardContent>
+                <CardInfo>
+                    <CardTitle>{restaurante.titulo}</CardTitle>
+                    <span>{restaurante.avaliacao.toFixed(1)}</span>
+                </CardInfo>
+
+                <span>{restaurante.tipo}</span>
+
+                <CardDesc>{restaurante.descricao}</CardDesc>
+
+                <Link to={`/restaurante/${restaurante.id}`}>
                     <Button>Saiba mais</Button>
                 </Link>
-            </Content>
+            </CardContent>
         </Card>
     )
 }

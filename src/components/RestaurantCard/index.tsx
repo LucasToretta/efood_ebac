@@ -1,42 +1,48 @@
 import { Link } from 'react-router-dom'
 import type { Restaurante } from '../../Types/efood'
-
 import {
     Card,
-    CardImage,
-    CardContent,
-    CardTitle,
-    CardInfo,
-    CardDesc,
+    Image,
+    Content,
+    Tags,
     Tag,
-    Button
+    TagDestaque,
+    TitleRow,
+    Title,
+    Rating,
+    Star,
+    Description,
+    ButtonLink
 } from './styles'
 
 type Props = {
-    restaurante: Restaurante
+    restaurant: Restaurante
 }
 
-export default function RestaurantCard({ restaurante }: Props) {
+export default function RestaurantCard({ restaurant }: Props) {
     return (
         <Card>
-            <CardImage src={restaurante.capa} alt={restaurante.titulo} />
+            <Image src={restaurant.capa} alt={restaurant.titulo} />
 
-            {restaurante.destacado && <Tag>Destaque da semana</Tag>}
+            <Tags>
+                {restaurant.destacado && <TagDestaque>Destaque da semana</TagDestaque>}
+                <Tag>{restaurant.tipo}</Tag>
+            </Tags>
 
-            <CardContent>
-                <CardInfo>
-                    <CardTitle>{restaurante.titulo}</CardTitle>
-                    <span>{restaurante.avaliacao.toFixed(1)}</span>
-                </CardInfo>
+            <Content>
+                <TitleRow>
+                    <Title>{restaurant.titulo}</Title>
+                    <Rating>
+                        {restaurant.avaliacao} <Star>★</Star>
+                    </Rating>
+                </TitleRow>
 
-                <span>{restaurante.tipo}</span>
+                <Description>{restaurant.descricao}</Description>
 
-                <CardDesc>{restaurante.descricao}</CardDesc>
-
-                <Link to={`/restaurante/${restaurante.id}`}>
-                    <Button>Saiba mais</Button>
-                </Link>
-            </CardContent>
+                <ButtonLink as={Link} to={`/restaurante/${restaurant.id}`}>
+                    Saiba mais
+                </ButtonLink>
+            </Content>
         </Card>
     )
 }

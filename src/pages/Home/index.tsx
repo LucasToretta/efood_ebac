@@ -22,7 +22,10 @@ export default function Home() {
             <Container>
                 <Grid>
                     {restaurantes.map((restaurante) => (
-                        <RestaurantCard key={restaurante.id} restaurante={restaurante} />
+                        <RestaurantCard
+                            key={restaurante.id}
+                            restaurant={restaurante}
+                        />
                     ))}
                 </Grid>
             </Container>

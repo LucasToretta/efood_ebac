@@ -1,58 +1,88 @@
 import styled from 'styled-components'
 
 export const Card = styled.div`
-    position: relative;
     background-color: #ffffff;
     border: 1px solid #e66767;
     width: 472px;
     display: flex;
     flex-direction: column;
-`
+    position: relative;
+    `
 
-export const CardImage = styled.img`
+export const Image = styled.img`
     width: 100%;
     height: 217px;
     object-fit: cover;
-`
+    `
 
-export const Tag = styled.span`
+export const Tags = styled.div`
     position: absolute;
     top: 16px;
+    left: 16px;
     right: 16px;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    `
+
+export const Tag = styled.span`
     background-color: #e66767;
     color: #ffffff;
     font-size: 12px;
     font-weight: 700;
     padding: 4px 8px;
-`
+    display: inline-flex;
+    align-items: center;
+    `
 
-export const CardContent = styled.div`
+export const TagDestaque = styled(Tag)`
+    position: absolute;
+    left: 70%;
+    transform: translateX(-50%);
+    `
+
+export const Content = styled.div`
     padding: 8px;
     display: flex;
     flex-direction: column;
-`
+    `
 
-export const CardInfo = styled.div`
+export const TitleRow = styled.div`
     display: flex;
     justify-content: space-between;
     align-items: center;
-`
+    `
 
-export const CardTitle = styled.h3`
+export const Title = styled.h3`
     font-size: 18px;
     font-weight: 700;
     color: #e66767;
     margin: 0;
-`
+    `
 
-export const CardDesc = styled.p`
+export const Rating = styled.span`
+    font-size: 14px;
+    font-weight: 700;
+    color: #e66767;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    `
+
+export const Star = styled.span`
+    color: #ffb930;
+    font-size: 18px;
+    line-height: 1;
+    `
+
+export const Description = styled.p`
     font-size: 14px;
     line-height: 1.4;
     color: #e66767;
-    margin: 8px 0 16px;
-`
+    margin: 8px 0;
+    `
 
-export const Button = styled.button`
+export const ButtonLink = styled.a`
     width: fit-content;
     background-color: #e66767;
     color: #ffffff;
@@ -61,4 +91,6 @@ export const Button = styled.button`
     font-size: 14px;
     font-weight: 700;
     cursor: pointer;
-`
+    text-decoration: none;
+    display: inline-block;
+    `

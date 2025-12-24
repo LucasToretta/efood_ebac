@@ -23,21 +23,23 @@ export const BannerContent = styled.div`
     padding: 24px 16px;
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    `
+    justify-content: space-between;
+`
 
 export const Categoria = styled.span`
-    color: #fff;
+    color: rgba(255, 255, 255, 0.7);
     font-size: 32px;
     font-weight: 100;
-    `
+    margin-top: 8px;
+`
 
 export const Titulo = styled.h2`
     color: #fff;
     font-size: 32px;
     font-weight: 900;
-    margin: 8px 0 0;
-    `
+    margin: 0 0 8px;
+`
+
 
 export const Container = styled.div`
     max-width: 1024px;
@@ -84,6 +86,6 @@ export const CardButton = styled.button`
     cursor: pointer;
     font-weight: 700;
     padding: 8px;
-    background: #fff;
+    background:#FFEBD9;
     color: #e66767;
     `

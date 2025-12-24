@@ -93,12 +93,12 @@ export const Portion = styled.p`
 `
 
 export const ActionBtn = styled.button`
-    margin-top: auto;
+
     width: fit-content;
     border: 0;
     cursor: pointer;
     font-weight: 700;
-    padding: 8px 12px;
-    background: #fff;
+    padding: 4px 4px;
+    background: #FFEBD9;
     color: #e66767;
     `

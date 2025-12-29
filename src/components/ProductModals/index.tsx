@@ -1,5 +1,8 @@
 import { useEffect } from 'react'
+import { useDispatch } from 'react-redux'
 import type { Produto } from '../../Types/efood'
+import type { AppDispatch } from '../../store'
+import { adicionar, abrir } from '../../pages/Carrinho/carrinhoSlice'
 import {
     Overlay,
     ModalBox,
@@ -19,6 +22,8 @@ type Props = {
 }
 
 export default function ProductModal({ produto, onClose }: Props) {
+    const dispatch = useDispatch<AppDispatch>()
+
     useEffect(() => {
         const handleKeyDown = (e: KeyboardEvent) => {
             if (e.key === 'Escape') onClose()
@@ -50,7 +55,13 @@ export default function ProductModal({ produto, onClose }: Props) {
                         <Desc>{produto.descricao}</Desc>
                         <Portion>Serve: {produto.porcao}</Portion>
 
-                        <ActionBtn type="button">
+                        <ActionBtn
+                            type="button"
+                            onClick={() => {
+                                dispatch(adicionar(produto))
+                                dispatch(abrir())
+                            }}
+                        >
                             Adicionar ao carrinho – R$ {produto.preco.toFixed(2)}
                         </ActionBtn>
                     </Info>

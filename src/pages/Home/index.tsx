@@ -1,20 +1,21 @@
-import { useEffect, useState } from 'react'
-
 import Header from '../../components/Header'
 import RestaurantCard from '../../components/RestaurantCard'
 import Footer from '../../components/Footer'
-
+import { useGetRestaurantesQuery } from '../../services/api'
 import { Container, Grid } from './styles'
 
-import { getRestaurantes } from '../../services/api'
-import type { Restaurante } from '../../Types/efood'
-
 export default function Home() {
-    const [restaurantes, setRestaurantes] = useState<Restaurante[]>([])
+    const { data: restaurantes = [], isLoading } = useGetRestaurantesQuery()
 
-    useEffect(() => {
-        getRestaurantes().then(setRestaurantes)
-    }, [])
+    if (isLoading) {
+        return (
+            <>
+                <Header />
+                <Container>Carregando...</Container>
+                <Footer />
+            </>
+        )
+    }
 
     return (
         <>

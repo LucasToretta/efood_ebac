@@ -1,4 +1,5 @@
-import { useEffect, useState } from 'react'
+// src/pages/Perfil/index.tsx
+import { useState } from 'react'
 import { useParams } from 'react-router-dom'
 
 import HeaderPerfil from '../../components/HeaderPerfil'
@@ -19,26 +20,48 @@ import {
     CardButton
 } from './styles'
 
-import { getRestaurantePorId } from '../../services/api'
-import type { Restaurante, Produto } from '../../Types/efood'
-
-type Params = {
-    id: string
-}
+import { useGetRestaurantePorIdQuery } from '../../services/api'
+import type { Produto } from '../../Types/efood'
 
 export default function Perfil() {
-    const { id } = useParams<Params>()
+    const { id } = useParams()
+    const idNum = Number(id)
 
-    const [restaurante, setRestaurante] = useState<Restaurante | null>(null)
+    const { data: restaurante, isLoading, isError } = useGetRestaurantePorIdQuery(
+        idNum,
+        { skip: !id || Number.isNaN(idNum) }
+    )
+
     const [produtoSelecionado, setProdutoSelecionado] = useState<Produto | null>(null)
 
-    useEffect(() => {
-        if (!id) return
-        getRestaurantePorId(Number(id)).then(setRestaurante)
-    }, [id])
+    if (!id || Number.isNaN(idNum)) {
+        return (
+            <>
+                <HeaderPerfil />
+                <Container>Restaurante inválido.</Container>
+                <Footer />
+            </>
+        )
+    }
 
-    if (!restaurante) {
-        return null
+    if (isLoading) {
+        return (
+            <>
+                <HeaderPerfil />
+                <Container>Carregando...</Container>
+                <Footer />
+            </>
+        )
+    }
+
+    if (isError || !restaurante) {
+        return (
+            <>
+                <HeaderPerfil />
+                <Container>Não foi possível carregar o restaurante.</Container>
+                <Footer />
+            </>
+        )
     }
 
     return (
@@ -59,7 +82,7 @@ export default function Perfil() {
                             <CardImage src={item.foto} alt={item.nome} />
                             <CardTitle>{item.nome}</CardTitle>
                             <CardDesc>{item.descricao}</CardDesc>
-                            <CardButton onClick={() => setProdutoSelecionado(item)}>
+                            <CardButton type="button" onClick={() => setProdutoSelecionado(item)}>
                                 Comprar
                             </CardButton>
                         </Card>

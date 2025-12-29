@@ -41,11 +41,15 @@ export const NavLink = styled(Link)`
   }
 `
 
-export const CartLink = styled(Link)`
+export const CartButton = styled.button`
   color: #e66767;
   font-size: 18px;
   font-weight: 900;
   text-decoration: none;
+  background: transparent;
+  border: 0;
+  cursor: pointer;
+  padding: 0;
 
   &:hover {
     text-decoration: none;

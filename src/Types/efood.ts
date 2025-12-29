@@ -1,4 +1,5 @@
 export type Produto = {
+    quantidade: number
     id: number
     nome: string
     descricao: string

@@ -5,7 +5,7 @@ export const Overlay = styled.div`
     inset: 0;
     background: rgba(0, 0, 0, 0.6);
     z-index: 999;
-    `
+`
 
 export const Sidebar = styled.aside`
     position: fixed;
@@ -18,7 +18,11 @@ export const Sidebar = styled.aside`
     z-index: 1000;
     padding: 24px 16px;
     overflow-y: auto;
-    `
+
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+`
 
 export const Item = styled.div`
     background: #ffebd9;
@@ -28,55 +32,53 @@ export const Item = styled.div`
     grid-template-columns: 80px 1fr 24px;
     gap: 8px;
     align-items: center;
-    margin-bottom: 16px;
-    `
+`
 
 export const ItemImg = styled.img`
     width: 80px;
     height: 80px;
     object-fit: cover;
-    `
+`
 
 export const ItemInfo = styled.div`
     display: flex;
     flex-direction: column;
     gap: 6px;
-    `
+`
 
 export const ItemTitle = styled.h3`
     font-size: 16px;
     font-weight: 700;
     margin: 0;
     color: #e66767;
-    `
+`
 
 export const ItemPrice = styled.span`
     font-size: 14px;
     margin: 0;
     color: #e66767;
-    `
+`
 
 export const RemoveButton = styled.button`
     background: transparent;
     border: 0;
     cursor: pointer;
-    color: #ffebd9;
+    color: #e66767;
     font-size: 18px;
-    `
+`
 
 export const Footer = styled.div`
-    margin-top: 16px;
     display: flex;
     flex-direction: column;
     gap: 12px;
-    `
+`
 
 export const TotalRow = styled.div`
     display: flex;
     justify-content: space-between;
     font-weight: 700;
     color: #ffebd9;
-    `
+`
 
 export const CheckoutButton = styled.button`
     width: 100%;
@@ -86,4 +88,22 @@ export const CheckoutButton = styled.button`
     cursor: pointer;
     background: #ffebd9;
     color: #e66767;
-    `
+`
+
+export const Input = styled.input`
+    width: 100%;
+    height: 32px;
+    padding: 0 8px;
+    border: 2px solid #ffebd9;
+    background: #ffebd9;
+    color: #4b4b4b;
+
+    &:focus {
+        outline: none;
+    }
+`
+
+export const Row = styled.div`
+    display: flex;
+    gap: 8px;
+`

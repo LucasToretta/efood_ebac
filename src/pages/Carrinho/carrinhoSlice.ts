@@ -1,12 +1,7 @@
 import { createSlice, type PayloadAction } from '@reduxjs/toolkit'
+import type { Produto } from '../../Types/efood'
 
-type CarrinhoItem = {
-    id: number
-    nome: string
-    foto: string
-    preco: number
-    quantidade: number
-}
+type CarrinhoItem = Produto & { quantidade: number }
 
 type CarrinhoState = {
     itens: CarrinhoItem[]
@@ -28,17 +23,10 @@ const carrinhoSlice = createSlice({
         fechar: (state) => {
             state.isOpen = false
         },
-        adicionar: (state, action: PayloadAction<CarrinhoItem>) => {
-            const item = action.payload
-            const itemExistente = state.itens.find((i) => i.id === item.id)
-
-            if (itemExistente) {
-                itemExistente.quantidade += 1
-            } else {
-                state.itens.push({ ...item, quantidade: 1 })
-            }
-
-            state.isOpen = true
+        adicionar: (state, action: PayloadAction<Produto>) => {
+            const item = state.itens.find((i) => i.id === action.payload.id)
+            if (item) item.quantidade += 1
+            else state.itens.push({ ...action.payload, quantidade: 1 })
         },
         remover: (state, action: PayloadAction<number>) => {
             state.itens = state.itens.filter((i) => i.id !== action.payload)
